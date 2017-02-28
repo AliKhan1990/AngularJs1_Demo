@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/angular.min.js"></script>
+    <script>
+        var myApp = angular.module("myApp", []);
+        myApp.controller("myCtrl", function ($scope) {
+            $scope.provinces = [
+                {
+                    name: "山西",
+                    city: [{
+                        name: "太原",
+                        area: [
+                            {
+                                name: "万柏林区",
+                                str: ["和平南路", "长风西街", "南内环西街", "义井西巷", "义井东巷"]
+                            }
+                        ]
+
+                    },
+                        {
+                            name: "榆次",
+                            area: [
+                                {
+                                    name: "万柏林区",
+                                    str: ["和平南路", "长风西街", "南内环西街", "义井西巷", "义井东巷"]
+                                }
+                            ]
+
+                        }]
+                },
+                {
+                    name: "陕西",
+                    city: [{
+                        name: "太原",
+                        area: [
+                            {
+                                name: "万柏林区",
+                                str: ["和平南路", "长风西街", "南内环西街", "义井西巷", "义井东巷"]
+                            }
+                        ]
+
+                    },
+                        {
+                            name: "榆次",
+                            area: [
+                                {
+                                    name: "万柏林区",
+                                    str: ["和平南路", "长风西街", "南内环西街", "义井西巷", "义井东巷"]
+                                }
+                            ]
+
+                        }]
+                }
+            ];
+        });
+    </script>
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+<select name="select" ng-model="selected_prov" ng-options="province.name for province in provinces">
+    <option value="">--请选择城市--</option>
+</select>
+<select name="select" ng-model="selected_city" ng-options="city.name for city in selected_prov.city">
+    <option value="">--请选择城市--</option>
+</select>
+<select name="select" ng-model="selected_area" ng-options="area.name for area in selected_city.area">
+    <option value="">--请选择城市--</option>
+</select>
+</body>
+</html>

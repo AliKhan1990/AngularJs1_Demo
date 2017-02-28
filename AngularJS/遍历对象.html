@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html ng-app="myApp" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/angular.min.js"></script>
+    <script>
+        var myApp = angular.module("myApp",[]);
+        myApp.controller("myCtrl",function($scope){
+            $scope.obj = [
+                {
+                    name:"小米",
+                    price:4000,
+                    OS:"Andriod",
+                    num:1,
+                    bday:new Date()
+                },{
+                    name:"大米",
+                    price:3100,
+                    OS:"Andriod",
+                    num:1,
+                    bday:new Date()
+                },{
+                    name:"中米",
+                    price:3300,
+                    OS:"Andriod",
+                    num:1,
+                    bday:new Date()
+                },{
+                    name:"糯米",
+                    price:4400,
+                    OS:"Andriod",
+                    num:1,
+                    bday:new Date()
+                }
+            ];
+        });
+        myApp.filter("myFilter",function(){
+            return function(datas,Hp,Lp){
+                var arr = [];
+                for(var i=0;i<datas.length;i++){
+                    var data = datas[i];
+                    if(data.price<Hp && data.price>Lp){
+                        arr.push(data);
+                    }
+                }
+                return  arr;
+            }
+        })
+
+    </script>
+</head>
+<body ng-controller="myCtrl">
+<table>
+    <tr>
+        <td>名称</td>
+        <td>单价</td>
+        <td>系统</td>
+        <td>数量</td>
+        <td>生产日期</td>
+        <td>小计</td>
+    </tr>
+    <tr ng-repeat="data in obj | myFilter:5000:1000 | orderBy:'-price'">
+        <td>{{data.name}}</td>
+        <td>{{data.price | currency:"RMB：￥"}}</td>
+        <td>{{data.OS}}</td>
+        <td><input type="number" value="{{data.num}}" ng-model="data.num"></td>
+        <td>{{data.bday | date:"yy年-MM月-dd日：hh时mm分"}}</td>
+        <td>{{data.price * data.num | currency:"RMB：￥"}}</td>
+    </tr>
+    <div>
+        <p>{{account()}}</p>
+    </div>
+</table>
+</body>
+</html>

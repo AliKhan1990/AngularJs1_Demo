@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html ng-app="dateApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet"/>
+    <script src="js/angular.min.js"></script>
+    <script>
+        /*
+         1、基本布局
+         2、准备模拟数据
+         3、将数据显示在view视图中
+         4、只显示待办事项 - 使用过滤器
+         5、动态显示待办事项的数量 - 定义统计函数
+         6、根据待办事项的数量动态改变样式 - 使用ngClass指令
+         7、自定义过滤器，控制显示待办事项(是否全部显示) - 开关功能
+         8、响应“添加”按钮事件，动态添加新的待办事项。
+         */
+        var dateApp = angular.module("dateApp",[]);
+        dateApp.controller("dateCtrl",function($scope){
+            $scope.date =
+                {  name: "Krakhan",
+                    events: [{
+                        name: "约德普打球",
+                        done: false
+                    }, {
+                        name: "约barack打球",
+                        done: true
+                    }, {
+                        name: "约barack打球",
+                        done: false
+                    }, {
+                        name: "约barack打球",
+                        done: false
+                    }, {
+                        name: "约barack打球",
+                        done: false
+                    }]
+                };
+            $scope.account = function(){
+                var cont=0;
+                for(var n=0;n<$scope.date.events.length;n++){
+                    if($scope.date.events[n].done==false){cont++}
+                }
+                return cont;
+            };
+            $scope.changeClass = function(){
+                var cclass = "";
+                if($scope.account()>=3){
+                    cclass="btn-warning";
+                }
+                return cclass;
+            };
+            $scope.addEvent = function(event){
+                alert(event)
+                $scope.item = {
+
+                    name:event,
+                    done:false
+                };
+
+                $scope.date.events.push($scope.item);
+            }
+        });
+        dateApp.filter("doneFilter",function(){
+
+            return function(items,show){
+                var arr = [];
+                angular.forEach(items,function(item){
+                    if(!item.done || show==true){
+                        arr.push(item);
+                    }
+                });
+                return arr;
+            };
+
+        });
+
+
+    </script>
+</head>
+<body ng-controller="dateCtrl">
+<div class="container">
+    <div class="page-header">
+        <h1>
+            {{date.name}}的记事本
+            <span class="label label-info" ng-class="changeClass()">{{account()}}</span>
+        </h1>
+    </div>
+
+    <div class="panel">
+        <div id="todoPanel" class="input-group">
+            <input class="form-control" ng-model="event"/>
+            <span class="input-group-btn">
+                <button class="btn btn-default" ng-click="addEvent(event)">添加</button>
+            </span>
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th><th>事项</th><th>完成情况</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="events in date.events | doneFilter:showAll">
+                <td>{{$index+1}}</td>
+                <td>{{events.name}}</td>
+                <td><input type="checkbox" ng-model="events.done"/></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="checkbox-inline">
+            <label><input type="checkbox" ng-model="showAll">显示已完成事项</label>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

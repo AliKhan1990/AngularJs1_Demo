@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>web站点入口页面</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/font-awesome.css"/>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-route.min.js"></script>
+    <script>
+        var routeApp = angular.module("routeApp",["ngRoute"]);
+        routeApp.config(function($routeProvider){
+            $routeProvider.when("/",{
+                templateUrl:"pages/home.html",
+                controller:"homeCtrl"
+            });
+            $routeProvider.when("/contact",{
+                templateUrl:"pages/contact.html",
+                controller:"contactCtrl"
+            });
+            $routeProvider.when("/contact/:subject",{
+                templateUrl:"pages/contact.html",
+                controller:"contactCtrl"
+            });
+            $routeProvider.when("/about",{
+                templateUrl:"pages/about.html",
+                controller:"aboutCtrl"
+            });
+            $routeProvider.otherwise({
+                templateUrl:"pages/routeNotFound.html",
+            })
+        });
+
+        routeApp.controller("homeCtrl",function($scope){
+            $scope.message="欢迎莅临！"
+        });
+        routeApp.controller("contactCtrl",function($scope,$routeParams){
+            $scope.message="欢迎莅临！"
+            // 获得参数名subject对应的参数值
+            var subject = $routeParams["subject"];
+
+            if(subject == "a"){
+                $scope.title = "请告诉我们";
+            }else if(subject == "b") {
+                $scope.title = "询价";
+            }
+        });
+        routeApp.controller("aboutCtrl",function($scope){
+            $scope.message="欢迎莅临！";
+        });
+
+    </script>
+</head>
+<body ng-app="routeApp">
+<header>
+    <nav class="navbar navbar-default">
+
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#/">我的站点</a>
+            </div>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#/"><i class="fa fa-home"></i> 主页</a></li>
+                <li><a href="#about"><i class="fa fa-shield"></i> 关于我们</a></li>
+                <li><a href="#contact"><i class="fa fa-comment"></i> 联系我们</a></li>
+            </ul>
+        </div>
+
+    </nav>
+</header>
+
+<div id="main">
+    <div ng-view></div>
+</div>
+
+</body>
+</html>

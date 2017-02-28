@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+    <meta charset="UTF-8">
+    <title>猜数游戏</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="js/angular.min.js"></script>
+    <script>
+        // 声明一个模块
+        var myapp = angular.module("myapp",[]);
+
+        // 注册一个控制器
+        myapp.controller("guessNumberCtrl",function($scope){
+            var random = null;
+            $scope.validate = function(){
+                $scope.differ = $scope.guess - random;
+                $scope.numberOfGuess++;
+            };
+
+
+            $scope.initGame = function(){
+                random = Math.floor(Math.random()*1000+1);
+                $scope.numberOfGuess = 0;
+
+            };
+            $scope.initGame();
+        });
+    </script>
+</head>
+<body ng-controller="guessNumberCtrl">
+<div class="container">
+    <h1>猜数游戏</h1>
+    <p class="well lead">猜一猜，多大值?(1-1000)</p>
+    <label>我猜是：</label>
+    <input type="number" ng-model="guess">
+    <button class="btn btn-primary btn-sm" ng-click="validate()">验证</button>
+    <button class="btn btn-success btn-sm" ng-click="initGame()">再玩一次</button>
+    <p>
+    <p ng-show="differ<0">小了点</p>
+    <p ng-show="differ>0">大了点</p>
+    <p ng-show="differ==0">OK</p>
+    </p>
+    <p class="text-info">猜测次数：<span class="badge">{{numberOfGuess}}</span></p>
+</div>
+</body>
+</html>

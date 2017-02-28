@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>选项</title>
+    <script src="js/angular.min.js"></script>
+    <script>
+        var myApp = angular.module("myApp",[]);
+        myApp.controller("myCtrl",function($scope){
+                $scope.gender = "男";
+            $scope.agree = true;
+        });
+    </script>
+
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+<input type="text" ng-model="name">
+姓名：<p  ng-bind="name"></p><br>
+<input type="radio" value="男" ng-model="gender">男
+<input type="radio" value="女" ng-model="gender">女
+<p ng-bind="gender"></p><br>
+<input type="checkbox" ng-model="agree">同意此协议
+<p ng-show="agree">同意</p>
+<p ng-show="!agree">不同意</p>
+
+</body>
+</html>
