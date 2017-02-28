@@ -1,0 +1,11 @@
+[
+  {"name":"product #1","description":"A product","category":"Category #1","price":788.00,"imgsrc":"images/TB1_50x50.jpg"},
+  {"name":"product #2","description":"A product","category":"Category #3","price":658.00,"imgsrc":"images/TB2_50x50.jpg"},
+  {"name":"product #3","description":"A product","category":"Category #2","price":558.00,"imgsrc":"images/TB3_50x50.jpg"},
+  {"name":"product #4","description":"A product","category":"Category #3","price":557.00,"imgsrc":"images/TB4_50x50.jpg"},
+  {"name":"product #5","description":"A product","category":"Category #5","price":448.00,"imgsrc":"images/TB5_50x50.jpg"},
+  {"name":"product #6","description":"A product","category":"Category #3","price":557.00,"imgsrc":"images/TB4_50x50.jpg"},
+  {"name":"product #7","description":"A product","category":"Category #1","price":448.00,"imgsrc":"images/TB5_50x50.jpg"},
+  {"name":"product #8","description":"A product","category":"Category #1","price":557.00,"imgsrc":"images/TB4_50x50.jpg"},
+  {"name":"product #9","description":"A product","category":"Category #1","price":448.00,"imgsrc":"images/TB5_50x50.jpg"}
+]

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html ng-app="myApp" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Angular</title>
+    <script src="../Angular/angular-1.5.5/angular.min.js"></script>
+    <script>
+        var myApp = angular.module("myApp",[]);
+        myApp.controller("myCtrl",function($scope,$window,$location,$document){
+            $scope.winHeight = $window.innerHeight;
+            $document[0].title = "Hello Angular!";
+            $scope.title = $document[0].title;
+            console.info("协议：",$location.protocol());
+            console.info("主机：",$location.host());
+            console.info("端口号：",$location.port());
+            console.info("资源路径：",$location.absUrl());
+        });
+    </script>
+</head>
+<body ng-controller="myCtrl">
+<p>网页的高度为：{{winHeight}}</p>
+<p>网页的标题为：{{title}}</p>
+
+</body>
+</html>

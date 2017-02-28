@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet"/>
+    <script src="../Angular/angular-1.5.5/angular.min.js"></script>
+    <script>
+        //模拟数据
+        var Date = {
+            name: "李四"
+        };
+        //声明一个模块
+        var DateApp = angular.module("DateApp", []);
+        //
+        DateApp.run(function($http){
+            $http.get("date.json").success(function(mydate){
+                Date.todo = mydate;
+            });
+        });
+
+        //注册一个控制器
+        DateApp.controller("DateCtrler", function ($scope) {
+
+            $scope.todos = Date;
+
+            //计数
+            $scope.accont = function(){
+                var cont=0;
+                angular.forEach($scope.todos.todo,function(item){
+                    if(!item. done){
+                        cont++;
+                    }
+                });
+                return cont;
+            };
+
+            //变色
+            $scope.labelColor = function(){
+                if($scope.accont()>=3){
+                    return "label-warning";
+                }else{
+                    return "label-success";
+                }
+            };
+
+            //添加函数
+            $scope.addDate =function(){
+                var newDate = {
+                    event:$scope.add_date,
+                    done:false
+                };
+                $scope.todos.todo.push(newDate);
+                $scope.add_date = null;
+            }
+        });
+        //自定义过滤器
+        DateApp.filter("showFilter",function(){
+            return function(events,showComplete){
+
+                var showArr = [];
+                angular.forEach(events,function(item){
+                    if(!item.done || showComplete){
+                        showArr.push(item);
+                    }
+                });
+                return showArr;
+            }
+        })
+
+
+    </script>
+</head>
+<body ng-app="DateApp" ng-controller="DateCtrler">
+<div class="container">
+    <div class="page-header">
+        <h1>
+            {{todos.name}}的笔记本
+            <span class="label label-info" ng-class="labelColor()" ng-hide="accont()==0">{{accont()}}</span>
+        </h1>
+    </div>
+
+    <div class="panel">
+        <div id="todoPanel" class="input-group">
+            <input class="form-control" ng-model="add_date"/>
+            <span class="input-group-btn">
+                <button class="btn btn-default" ng-click="addDate()">添加</button>
+            </span>
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>事项</th>
+                <th>完成情况</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="events in todos.todo | showFilter:showComplete">
+                <td>{{$index + 1}}</td>
+                <td>{{events.event}}</td>
+                <td><input type="checkbox" ng-model="events.done"/></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="checkbox-inline">
+            <label><input type="checkbox" ng-model="showComplete">显示已完成事项</label>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

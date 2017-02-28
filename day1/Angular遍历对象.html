@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        table{
+            text-align: center;
+            border:1px solid #eee;
+            border-collapse: collapse;
+        }
+
+        table tr,table td,table th{
+            border:1px solid #eee;
+        }
+    </style>
+    <script src="../Angular/angular-1.5.5/angular.min.js"></script>
+    <script>
+//------step1:声明一个模块
+//------第一个参数是模块名称第二个为依赖的参数列表
+        var myapp = angular.module("myapp",[]);
+//------step2：在模块中声明一个控制器
+//------所谓控制器即一个对象的构造函数
+//------依赖注入$scope
+        myapp.controller("myCTRL",function($scope){
+            $scope.item = [
+                {name:"华为",price:"2499",OS:"Andriod"},
+                {name:"小米",price:"1999",OS:"Andriod"},
+                {name:"LG",price:"1399",OS:"Andriod"},
+                {name:"三星",price:"3999",OS:"Andriod"}
+            ];
+        });
+    </script>
+</head>
+<body ng-app="myapp" ng-controller="myCTRL">
+<h4>商品信息：</h4>
+<table>
+    <tr>
+        <th>序号</th>
+        <th>名称</th>
+        <th>价格</th>
+        <th>系统</th>
+    </tr>
+    <tr ng-repeat="item in item | orderBy:'price' | limitTo:'3'">
+        <td>{{$index + 1}}</td>
+        <td>{{item.name}}</td>
+        <td>{{item.price | currency:"￥"}}</td>
+        <td>{{item.OS | uppercase}}</td>
+    </tr>
+</table>
+</body>
+</html>

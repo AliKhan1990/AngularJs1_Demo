@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        table {
+            text-align: center;
+            border: 1px solid #eee;
+            border-collapse: collapse;
+        }
+
+        table tr, table td, table th {
+            border: 1px solid #eee;
+        }
+
+        #inp input, #inp div {
+            float: left;
+        }
+    </style>
+    <script src="../Angular/angular-1.5.5/angular.min.js"></script>
+    <script>
+        //------step1:声明一个模块
+        //------第一个参数是模块名称第二个为依赖的参数列表
+        var myapp = angular.module("myapp", []);
+        //------step2：在模块中声明一个控制器
+        //------所谓控制器即一个对象的构造函数
+        //------依赖注入$scope
+        myapp.controller("myCTRL", function ($scope) {
+            $scope.item = [
+                {name: "华为", price: 2499, OS: "Andriod", pnum: 1, bdate: new Date()},
+                {name: "小米", price: 1999, OS: "Andriod", pnum: 2, bdate: new Date()},
+                {name: "LG", price: 1399, OS: "Andriod", pnum: 1, bdate: new Date()},
+                {name: "三星", price: 3999, OS: "Andriod", pnum: 1, bdate: new Date()}
+            ];
+            $scope.add=function(){
+                        var total=0;
+                        for(var i=0;i<$scope.item.length;i++){
+                            total+=$scope.item[i].pnum*$scope.item[i].price;
+                        }
+                        return total;
+            }
+        });
+
+    </script>
+</head>
+<body ng-app="myapp" ng-controller="myCTRL">
+<h4>商品信息：</h4>
+<table>
+    <tr>
+        <th>序号</th>
+        <th>名称</th>
+        <th>价格</th>
+        <th>系统</th>
+        <th>时间</th>
+        <th>数量</th>
+        <th>小计</th>
+    </tr>
+    <tr ng-repeat="item in item">
+        <td>{{$index + 1}}</td>
+        <td>{{item.name}}</td>
+        <td>{{item.price | currency:"￥"}}</td>
+        <td>{{item.OS | uppercase}}</td>
+        <td>{{item.bdate | date:"yyyy年MM月dd日 HH时mm分ss秒"}}</td>
+        <td id="inp">
+            <input type="button" value="+" ng-click="item.pnum=item.pnum+1">
+            <input type="text" ng-model="item.pnum" value={{item.pnum}} style="width:40px;height: 20px;border:1px solid lightsteelblue">
+            <input ng-click="item.pnum=item.pnum-1" type="button" value="-"></td>
+        <td>{{item.price * item.pnum | currency:"￥"}}</td>
+    </tr>
+    <tr>
+        <td colspan="5">总计：</td>
+        <td colspan="2">{{add() | currency:"￥"}}元</td>
+    </tr>
+</table>
+</body>
+</html>

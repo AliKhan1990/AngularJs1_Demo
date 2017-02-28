@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../Angular/angular-1.5.5/angular.min.js"></script>
+    <script>
+//------step1:声明一个模块
+//------第一个参数是模块名称第二个为依赖的参数列表
+        var myapp = angular.module("myapp",[]);
+//------step2：在模块中声明一个控制器
+//------所谓控制器即一个对象的构造函数
+//------依赖注入$scope
+        myapp.controller("myCTRL",function($scope){
+            $scope.city="Shanghai";
+        });
+    </script>
+</head>
+<body ng-app="myapp" ng-controller="myCTRL">
+<p><input type="text" ng-model="city"></p>
+<p ng-bind="city">{{city}}</p>
+</body>
+</html>

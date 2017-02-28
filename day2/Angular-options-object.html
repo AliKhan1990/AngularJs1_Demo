@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html ng-app="regApp" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>了解隐士绑定</title>
+    <script src="../Angular/angular-1.5.5/angular.min.js"></script>
+    <script>
+        var regApp = angular.module("regApp",[]);
+        regApp.controller("regCon",function($scope){
+            $scope.province=[
+                {name:"山西",city:[{cname:"太原",areas:["小店区","尖草坪区","榆次区","清徐区"]},{cname:"太原",areas:["小店区","尖草坪区","榆次区","清徐区"]}]},
+                {name:"北京",city:[{cname:"北京市",areas:["朝阳区","昌平区","海淀区","大兴区"]}]}
+            ];
+        })
+    </script>
+</head>
+<body ng-controller="regCon">
+<select ng-model="selectedProv" name="province" ng-options="prov.name for prov in province">
+    <option value="">--请选择省份--</option>
+</select>
+<select ng-model="selectedCity" name="city" ng-options="city.cname for city in selectedProv.city">
+    <option value="">--请选择城市--</option>
+</select>
+<select ng-model="selectedArea" name="area" ng-options="'|'+area+'|' for area in selectedCity.areas">
+    <option value="">--请选择城市--</option>
+</select>
+<br><p>{{selectedCity}},{{selectedArea}}</p>
+</body>
+</html>

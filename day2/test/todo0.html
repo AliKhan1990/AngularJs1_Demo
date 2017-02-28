@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html ng-app="DateApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet"/>
+    <script src="../../Angular/angular-1.5.5/angular.min.js"></script>
+    <script>
+        /*
+         1、基本布局
+         2、准备模拟数据
+         3、将数据显示在view视图中
+         4、只显示待办事项 - 使用过滤器
+         5、动态显示待办事项的数量 - 定义统计函数
+         6、根据待办事项的数量动态改变样式 - 使用ngClass指令
+         7、自定义过滤器，控制显示待办事项(是否全部显示) - 开关功能
+         8、响应“添加”按钮事件，动态添加新的待办事项。
+         */
+        //声明一个模块
+        var Date = {
+            name:"小张",
+            date:[
+                {event:"Date with Ali",done:false},
+                {event:"Meeting with Marie",done:true},
+                {event:"Play ball with Omar",done:false}
+            ]
+        };
+        var DateApp = angular.module("DateApp",[]);
+        DateApp.controller("DateCtrler",function($scope){
+            $scope.todos = Date;
+            $scope.DateAccont = function(){
+                var cont = 0;
+                angular.forEach($scope.todos.date,function(item){
+                    if(!item.done){
+                        cont++;
+                    }
+                });
+                return cont;
+            };
+            $scope.ContClass = function(){
+                return $scope.DateAccont() >=3 ? "label-warning" : "label-success";
+            };
+
+            $scope.AddDate = function(){
+                if(!$scope.action){
+                    return ;
+                }
+                var arr = {
+                    event:$scope.action,
+                    done:false
+                };
+
+                $scope.todos.date.push(arr);
+                $scope.action="";
+            }
+
+        });
+
+        DateApp.filter("dateFilter",function(){
+            return function(items,show){
+                var arrShow = [];
+
+                angular.forEach(items,function(item){//筛选元素
+                    if(!item.done || show){
+                        arrShow.push(item);
+                    }
+                });
+
+                return arrShow;
+            }
+
+        });
+    </script>
+</head>
+<body ng-controller="DateCtrler">
+<div class="container">
+    <div class="page-header">
+        <h1>
+            {{todos.name}}的记事本
+            <span class="label label-info" ng-class="ContClass()" ng-hide="DateAccont()==0">{{DateAccont()}}</span>
+        </h1>
+    </div>
+
+    <div class="panel">
+        <div id="todoPanel" class="input-group">
+            <input class="form-control" ng-model="action"/>
+            <span class="input-group-btn">
+                <button class="btn btn-default" ng-click="AddDate()">添加</button>
+            </span>
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th><th>事项</th><th>完成情况</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="events in todos.date | dateFilter:showDoneDate">
+                <td>{{$index + 1}}</td>
+                <td>{{events.event}}</td>
+                <td><input type="checkbox" ng-model="events.done"/></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="checkbox-inline">
+            <label><input type="checkbox" ng-model="showDoneDate">显示已完成事项</label>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

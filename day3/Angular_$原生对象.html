@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html ng-app="myApp" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Angular</title>
+    <script src="../Angular/angular-1.5.5/angular.min.js"></script>
+    <script>
+        var myApp = angular.module("myApp",[]);
+        myApp.controller("myCtrl",function($scope,$window){
+//赋予一个初始显示高度
+            $scope.winHeight = $window.innerHeight;
+            //获得原生的window对象
+            var w = angular.element($window);
+            //再为w绑定事件
+            w.on("resize",function(){
+                $scope.$apply(function(){
+                    $scope.winHeight = $window.innerHeight;
+                })
+            });
+           // $window.location.href = "http://www.163.com";
+
+        });
+    </script>
+</head>
+<body ng-controller="myCtrl">
+<p>网页的高度为：{{winHeight}}</p>
+</body>
+</html>

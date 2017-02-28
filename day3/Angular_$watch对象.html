@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html ng-app="myApp" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Angular</title>
+    <script src="../Angular/angular-1.5.5/angular.min.js"></script>
+    <script>
+        var product = [
+            {name: "商品A", price: "19.90", quantity: 3},
+            {name: "商品B", price: "39.90", quantity: 1},
+            {name: "商品C", price: "10.90", quantity: 2}
+        ];
+        var myApp = angular.module("myApp", []);
+        myApp.controller("myCtrl", function ($scope) {
+            $scope.products = product;
+            $scope.totalPay = function(){
+                var total = 0;
+
+                angular.forEach($scope.products,function(item){
+                    total += item.price * item.quantity;
+                });
+
+                return total;
+            };
+            $scope.send = {
+                postage:10.00
+            };
+            $scope.actualPayment = function(){
+                return $scope.totalPay() + $scope.send.postage;
+            };
+            $scope.$watch($scope.totalPay,function(NewValue,PreValue){
+                if(NewValue>=99 || NewValue==0){
+                    $scope.send.postage = 0;
+                }else{
+                    $scope.send.postage = 10.00;
+                }
+            });
+            $scope.check = function(i,index){
+                if(i.quantity <= 0 ){
+                    i.quantity = 0;
+                }else{
+                    if(i.quantity > 99 ){
+                        i.quantity = 99;
+                    }
+                }
+            }
+
+        });
+    </script>
+</head>
+<body ng-controller="myCtrl">
+<div ng-repeat="item in products">
+    名称：{{item.name}}
+    数量：<input type="number" ng-model="item.quantity" ng-change="check(item,$index)">
+    单价：{{item.price | currency:"￥"}}
+    小计：{{item.price*item.quantity | currency:"￥"}}
+    <br>
+</div>
+<div>应付金额：{{totalPay() | currency:"￥"}}</div>
+<div>邮费：{{send.postage | currency:"￥"}}</div>
+<div>实付金额：{{actualPayment()| currency:"￥"}}</div>
+</body>
+</html>

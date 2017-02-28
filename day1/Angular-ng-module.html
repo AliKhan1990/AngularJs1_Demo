@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html ng-app lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../Angular/angular-1.5.5/angular.min.js"></script>
+</head>
+<body>
+<div>
+    请输入文字：<input type="text" ng-model="mod">
+</div>
+<p ng-init="mod">显示：{{mod}}</p>//未加载完成会直接显示{{}}
+<p ng-bind="mod"></p>//bind加载完成后进行显示
+</body>
+</html>

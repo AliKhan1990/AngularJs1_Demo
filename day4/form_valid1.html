@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJS Form - 注册表单</title>
+    <style>
+        body {
+            font: normal 16px/1.4 Georgia;
+        }
+
+        input:not([type='checkbox']), select {
+            width: 250px;
+        }
+
+        select, input {
+            padding: 5px;
+            margin-top: 12px;
+            font-family: inherit;
+        }
+
+        input[type='submit'] {
+            width: 264px;
+        }
+
+        form span {
+            color: red;
+        }
+        input[type="email"].ng-dirty.ng-invalid{
+            border:1px solid orangered;
+        }
+        input[type="email"].ng-dirty.ng-valid{
+            border:1px solid skyblue;
+        }
+    </style>
+    <script src="../Angular/angular-1.5.5/angular.min.js"></script>
+    <script>
+        var myForm = angular.module("myForm",[]);
+        myForm.controller("MyCtrl",function($scope){});
+    </script>
+</head>
+<body ng-app="myForm" ng-controller="MyCtrl">
+<div>
+    <form name="registerForm" novalidate>
+
+        <input type="text" placeholder="name" name="pname" ng-model="pname"  required>
+        <span ng-show="registerForm.pname.$dirty && registerForm.pname.$error.required && registerForm.email.$dirty">用户名不能为空</span>
+        <span ng-show="!(registerForm.pname.$dirty && registerForm.pname.$error.required && registerForm.email.$dirty)">此用户名可用</span>
+        <br/>
+
+        <input type="email" placeholder="Email" name="email" ng-model="email" required>
+        <span ng-show="registerForm.email.$dirty">
+            <span ng-show="registerForm.email.$error.required && registerForm.email.$dirty">邮箱不能为空</span>
+            <span ng-show="registerForm.email.$invalid  && registerForm.email.$dirty">邮箱格式错误</span>
+        </span>
+        <br/>
+
+        <select name="channels">
+            <option value="">您从哪里知道的我们?</option>
+        </select>
+        <br/>
+
+        <input type="checkbox" name="newsletterOptIn"
+               id="newsletterOptIn" value="newsletterOptIn"/>
+        <label for="newsletterOptIn">接收时事通讯</label>
+        <br/>
+
+        <input type="submit" value="注册" ng-disabled="registerForm.$invalid">
+    </form>
+
+    <div>
+        谢谢您花费宝贵时间注册!
+    </div>
+</div>
+</body>
+</html>

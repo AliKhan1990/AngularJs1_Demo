@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../Angular/angular-1.5.5/angular.min.js"></script>
+    <script>
+        var myapp = angular.module("myapp",[]);
+        myapp.controller("myCtrl",function($scope){
+            $scope.numbers = [110,112,114,120,119,911,911];
+        });
+    </script>
+</head>
+<body ng-app="myapp" ng-controller="myCtrl">
+    <ul>
+        <li ng-repeat="number in numbers track by $index">{{$index}}--{{number}}</li>
+    </ul>
+</body>
+</html>

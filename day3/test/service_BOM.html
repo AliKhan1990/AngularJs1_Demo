@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../Angular/angular-1.5.5/angular.min.js"></script>
+    <script>
+        var myApp = angular.module("myApp",[]);
+        myApp.controller("myCtrl",function($scope,$window,$document,$location){
+            $scope.winHeight = $window.innerHeight;
+            $scope.winWidth = $window.innerWidth;
+            $scope.title = $document[0].title;
+            $scope.protocol = $location.protocol();
+            $scope.port = $location.port();
+            $scope.host = $location.host();
+            $scope.url = $location.absUrl();
+        })
+    </script>
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+浏览器高度：<p>{{winHeight}}</p>
+浏览器宽度：<p>{{winWidth}}</p>
+文档标题：<p>{{title}}</p>
+文档端口：<p>{{port}}</p>
+文档主机：<p>{{host}}</p>
+文档路径：<p>{{url}}</p>
+</body>
+</html>

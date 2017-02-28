@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>service_window</title>
+    <script src="../../Angular/angular-1.5.5/angular.min.js"></script>
+    <script>
+        var myapp = angular.module("myapp",[]);
+        myapp.controller("myCtrl",function($scope,$window){
+            $scope.winHeight = $window.innerHeight;
+            var w = angular.element($window);
+
+            w.on("resize",function(){
+                $scope.$apply(function(){
+                    $scope.winHeight = $window.innerHeight;
+                })
+            })
+        });
+    </script>
+</head>
+<body ng-app="myapp" ng-controller="myCtrl">
+<p>窗口高度：{{winHeight}}</p>
+</body>
+</html>

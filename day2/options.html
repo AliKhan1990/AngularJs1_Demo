@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html ng-app="regApp" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>了解隐士绑定</title>
+    <script src="../Angular/angular-1.5.5/angular.min.js"></script>
+    <script>
+        var regApp = angular.module("regApp",[])
+        regApp.controller("regCon",function($scope){
+
+        })
+    </script>
+</head>
+<body ng-controller="regCon">
+<select name="city" id="" ng-model="city">
+    <option value="">--请选择城市--</option>
+    <option value="太原">-太原市-</option>
+    <option value="北京">-北京市-</option>
+    <option value="上海">-上海市-</option>
+    <option value="广州">-广州市-</option>
+    <option value="深圳">-深圳市-</option>
+    <option value="杭州">-杭州市-</option>
+</select>
+<div>{{city}}</div>
+</body>
+</html>

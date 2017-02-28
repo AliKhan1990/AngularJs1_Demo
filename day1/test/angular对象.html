@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../Angular/angular-1.5.5/angular.min.js"></script>
+    <script>
+        var myapp = angular.module("myapp",[]);
+        myapp.controller("myCtrl",function($scope){
+            $scope.products = [
+                {name:"小米",price:1999,bdate:new Date(),pnum:3},
+                {name:"华为",price:2499,bdate:new Date(),pnum:1},
+                {name:"三星",price:3800,bdate:new Date(),pnum:2},
+                {name:"Neuxes",price:1000,bdate:new Date(),pnum:1}
+            ]
+            $scope.aa=function () {
+                return 1111
+            }
+
+        });
+    </script>
+</head>
+<body ng-app="myapp">
+<table  ng-controller="myCtrl">
+    <tr>
+        <th>名称</th>
+        <th>单价</th>
+        <th>生产日期</th>
+        <th>数量</th>
+        <th>小计</th>
+    </tr>
+    <tr np-repeat="item in products">
+        <td>{{item.name}}</td>
+        <td>{{item.price}}</td>
+        <td>{{item.bdate}}</td>
+        <td>{{item.pnum}}</td>
+        <td>{{item.price*item.pnum | currency:"$"}}</td>
+    </tr>
+    <tr>{{aa()}}</tr>
+</table>
+</body>
+</html>

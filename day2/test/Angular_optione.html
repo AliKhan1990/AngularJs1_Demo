@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../Angular/angular-1.5.5/angular.min.js"></script>
+    <script>
+        var cityApp = angular.module("cityApp",[]);
+        cityApp.controller("cityCTRLer",function($scope){
+            $scope.province = [
+                {name:"山西",city:[{cname:"太原",area:["小店区","尖草坪","清徐区","榆次区"]},{cname:"北京",area:["海淀区","朝阳坪","大兴区","昌平区"]}]},
+                {name:"陕西",city:[{cname:"太原",area:["小店区","尖草坪","清徐区","榆次区"]},{cname:"北京",area:["海淀区","朝阳坪","大兴区","昌平区"]}]}
+            ]
+        });
+    </script>
+</head>
+<body ng-app="cityApp" ng-controller="cityCTRLer">
+<select ng-model="selectedProv" name="province" ng-options="prov.name for prov in province">
+    <option value="">--请选择省份--</option>
+</select>
+<select ng-model="selectedCity" name="City" ng-options="city.cname for city in selectedProv.city">
+    <option value="">--请选择城市--</option>
+</select>
+<select ng-model="selectedArea" name="Area" ng-options="area for area in selectedCity.area">
+    <option value="">--请选择区--</option>
+</select>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../Angular/angular-1.5.5/angular.min.js"></script>
+    <script>
+        var myApp = angular.module("myApp",[]);
+        myApp.controller("MyCtrl",function($scope,$interval){
+            $scope.cont = 0;
+            setInterval(function(){
+                $scope.$apply(function(){
+                    $scope.cont++;
+                });
+            },3000);
+        });
+    </script>
+</head>
+<body ng-app="myApp" ng-controller="MyCtrl">
+<p>{{cont}}</p>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<div class="panel panel-default row" ng-controller="productListController">
+    <div class="col-xs-3">
+        <!--商品类别放这里-->
+        <a class="btn btn-block btn-default btn-lg"  ng-click="selectedClickCategory(null)">首页</a>
+        <!--生成导航元素-->
+        <a class=" btn btn-block btn-default btn-lg"
+           ng-repeat="item in data.categries"
+           ng-click="selectedClickCategory(item.category)"
+           ng-class="getActiveClass(item.category)">
+            {{item.category}}
+        </a>
+    </div>
+
+    <div class="col-xs-8">
+        <!--产品信息放这里-->
+        <div class="well" ng-repeat="product in data.products | filter : showByCategory | range : currentPage : pageSize">
+            <h3>
+                <strong>{{product.name}}</strong>
+                <span class="pull-right label label-primary">{{product.price | currency:"RMB ￥" }}</span>
+            </h3>
+            <button class="btn btn-success btn-sm pull-right" ng-click="addToCart(product)">加入购物车</button>
+            <img ng-src="{{product.imgsrc}}" style="padding-right: 10px;"/><span class="lead">{{product.description}}</span>
+        </div>
+
+        <!--分页导航按钮-->
+        <div class="pull-right btn-group">
+            <a class="btn btn-default"
+               ng-repeat="pNum in data.products | filter : showByCategory | pageCount:pageSize"
+               ng-click="selectPage(pNum)"
+               ng-class="getActivePageClass(pNum)"
+            >{{pNum}}</a>
+        </div>
+        <!--<div class="input-append">-->
+        <!--<input class="span2" id="appendedInputButton" type="text">-->
+        <!--<button class="btn" type="button">Go!</button>-->
+        <!--</div>-->
+    </div>
+</div>
